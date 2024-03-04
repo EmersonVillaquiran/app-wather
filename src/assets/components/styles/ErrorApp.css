@@ -1,0 +1,14 @@
+.error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error__title{
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: rgba(165, 42, 42, 0.596);
+    padding: 0.5em;
+    border-radius: 0.8rem;
+    max-width: 350px;
+    color: aliceblue;
+}
