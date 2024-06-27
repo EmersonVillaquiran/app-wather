@@ -17,7 +17,7 @@ function App() {
   const [HasError, setHasError] = useState(false)
   const [city, setCity] = useState('');
   const [locationSuccess, setLocationSuccess] = useState(false);
-
+  const [hasErrorForPermission, setHasErrorForPermission] = useState(false);
  
 
   const success = info => {
@@ -29,8 +29,9 @@ function App() {
   }
 
   const error = () => {
-    setHasError(true);
+    // setHasError(true);
     setIsLoading(false);
+    setHasErrorForPermission(true)
   };
 
  
@@ -46,6 +47,7 @@ function App() {
       let url;
     if (city) {
       url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}`;
+      setHasErrorForPermission(false)
     } else if (locationSuccess) {
       url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${APIKEY}`;
     }
@@ -89,9 +91,12 @@ const [objStyle, setObjStyle] = useState({
       <FormCountry setCity={setCity}/>
       {isLoading 
       ?<Loader/>
-      : HasError 
-        ?<ErrorApp/>
-        :<WeatherCard weather={weather} temp={temp}/>
+      :hasErrorForPermission
+        ? <h1>❌Se impidió el acceso a la ubicación🤦‍♂️ 
+          <br />intenta por la búsqueda ✌️</h1>
+        : HasError 
+          ?<ErrorApp/>
+            :<WeatherCard weather={weather} temp={temp}/>
       }
     </div>
   )
